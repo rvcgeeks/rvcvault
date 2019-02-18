@@ -1,0 +1,5 @@
+Package: rvcvault
+Version: 2.0
+Maintainer: Rajas Chavadekar
+Architecture: amd64
+Description: AES 128bit secure immediate file encryption / decryption by @rvcgeeks____ (Rajas Chavadekar)

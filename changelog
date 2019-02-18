@@ -1,0 +1,31 @@
+# Changelog
+All notable changes to this project will be documented in this file
+
+
+
+## [Unreleased]
+### Changed
+- Add file handling capacity via cpp to AES encryption in C for Electronic Code Book Mode (prototyping and testing on various formats...)
+
+
+
+## [1.0]
+### Added
+- Better CLI interface via flags
+- Banners and ASCII art graphics
+
+### Changed
+- Bunched all operations via method pointer
+
+
+
+## [2.0]
+### Added
+- Encryption / Decryption via Cipher Block Chaining Mode 
+- more better banners and ASCII art
+- a manpage
+- a copyright
+
+### Changed
+- more flag options for CLI interface for both ecb and cbc modes and validation checks
+- modified some misleading outputs

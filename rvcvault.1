@@ -1,0 +1,163 @@
+
+   MIT:
+--------------------------------------------------------------------------------
+Copyright (c) 2017 @rvcgeeks____ (Rajas Chavadekar)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+--------------------------------------------------------------------------------
+
+.TH RVCVAULT 1
+
+.SH NAME
+rvcvault 
+
+.SH SYNOPSIS
+       ~$ rvcvault -ecb [-e|-d] [precious file path] [keyfile path] [output file path]
+       ~$ rvcvault -cbc [-e|-d] [precious file path] [keyfile path] [output file path] [initialization vector file path]
+       
+.SH USAGE
+        Encrypt your precious files by a key file...
+        '-e' encryption mode.\n   '-d' decryption mode.
+        '-ecb' is for Electronic Code Book mode of AES
+        '-cbc' is for Cipher Block Chaining mode of AES
+
+.SH DESCRIPTION:
+    
+rvcvault is an CLI based Block Cipher Unix application in which you can encrypt or decrypt 
+your important files by AES algorithm via a key which is also an another file
+you are supposed to keep safe with you for decryption... 
+
+STRONG SUGGESTION TO ZIP THE INPUT FILES AND THEN ENCRYPT / DECRYPT THE ARCHIVE TO KEEP FILE CHECKSUM INTACT ON DECRYPTION !!!
+
+rvcvault provides two modes for AES encryption...
+1) Cipher Block Chaining 
+    enabled by -cbc flag
+2) Electronic Code Book 
+    enabled by -ecb flag
+
+for rvcvault to understand whether to encrypt or decrypt after mode flag,
+you have to specify '-e' for encryption and '-d' for decryption. Missing of
+these flags will lead to error
+
+for encryption in ecb:
+  ~$ rvcvault -ecb -e [file to be encrypted] [keyfile] [filename of encrypted file]
+for decryption in ecb:
+  ~$ rvcvault -ecb -d [file which is encrypted by ecb] [keyfile] [filename of decrypted (with output format prefered)]
+for encryption in cbc:
+  ~$ rvcvault -cbc -e [file to be encrypted] [keyfile] [filename of encrypted file] [file for initialization vector]
+for decryption in cbc:
+  ~$ rvcvault -cbc -d [file which is encrypted by cbc] [keyfile] [filename of decrypted (with output format prefered)] [file for initialization vector]
+  
+  
+.SH WARNING!!!
+  
+A file encrypt in ecb cannot be decrypted by cbc mode and vice versa... however this application
+will perform decryption steps on file but output will be a complete mess... 
+  
+  
+  
+.SH SOME BACKGROUND:
+  
+  
+  
+  
+WELL WHAT IS AES?
+
+     The Advanced Encryption Standard (AES), also known by its original name 
+  Rijndael is a specification for the encryption of electronic data established by
+  the U.S. National Institute of Standards and Technology (NIST) in 2001.
+  
+     AES is a subset of the Rijndael block cipher developed by two Belgian cryptographers,
+  Vincent Rijmen and Joan Daemen, who submitted a proposal to NIST during the AES selection 
+  process. Rijndael is a family of ciphers with different key and block sizes. 
+
+  
+  
+  
+
+
+
+
+
+
+
+  
+Electronic Code Book (ECB) Mode
+
+This mode is a most straightforward way of processing a series of sequentially listed message blocks.
+Operation
+
+    The user takes the first block of plaintext and encrypts it with the key to produce the first block of ciphertext.
+
+    He then takes the second block of plaintext and follows the same process with same key and so on so forth.
+
+The ECB mode is deterministic, that is, if plaintext block P1, P2,…, Pm are encrypted
+twice under the same key, the output ciphertext blocks will be the same.
+
+In fact, for a given key technically we can create a codebook of ciphertexts for all possible
+plaintext blocks. Encryption would then entail only looking up for required plaintext and select 
+the corresponding ciphertext. Thus, the operation is analogous to the assignment of code words 
+in a codebook, and hence gets an official name − Electronic Codebook mode of operation (ECB). 
+
+
+
+
+
+
+
+
+
+
+
+
+Cipher Block Chaining (CBC) Mode
+
+CBC mode of operation provides message dependence for generating ciphertext and makes the system non-deterministic.
+Operation
+
+The operation of CBC mode is depicted in the following illustration. The steps are as follows −
+
+    Load the n-bit Initialization Vector (IV) in the top register.
+
+    XOR the n-bit plaintext block with data value in top register.
+
+    Encrypt the result of XOR operation with underlying block cipher with key K.
+
+    Feed ciphertext block into top register and continue the operation till all plaintext blocks are processed.
+
+    For decryption, IV data is XORed with first ciphertext block decrypted. 
+    The first ciphertext block is also fed into to register replacing IV for decrypting next ciphertext block.
+
+    Analysis of CBC Mode
+
+In CBC mode, the current plaintext block is added to the previous ciphertext block,
+and then the result is encrypted with the key. Decryption is thus the reverse process,
+which involves decrypting the current ciphertext and then adding the previous ciphertext
+block to the result.
+
+Advantage of CBC over ECB is that changing IV results in different ciphertext 
+for identical message. On the drawback side, the error in transmission gets propagated
+to few further block during decryption due to chaining effect.
+
+It is worth mentioning that CBC mode forms the basis for a well-known data origin
+authentication mechanism. Thus, it has an advantage for those applications that 
+require both symmetric encryption and data origin authentication.
+    
+    
+
